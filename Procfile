@@ -1,0 +1,1 @@
+web: java -D server.port=$PORT -D spring.profiles.active=production $JAVA_OPTS -jar "target/springbootTutorialStudy.jar"
