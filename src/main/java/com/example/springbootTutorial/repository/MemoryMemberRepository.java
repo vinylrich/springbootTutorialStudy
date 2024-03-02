@@ -11,7 +11,6 @@ import java.util.*;
 @Repository
 public class MemoryMemberRepository implements MemberRepository {
 
-
     public static Map<Long,Member> store = new HashMap<>();
     // [1][junwoo]
     // [2][jihoon]

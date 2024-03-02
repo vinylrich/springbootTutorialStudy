@@ -2,17 +2,17 @@ package com.example.springbootTutorial.controller;
 
 import com.example.springbootTutorial.domain.Member;
 import com.example.springbootTutorial.service.MemberService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class MemberController {
 
     private final MemberService memberService;
@@ -56,14 +56,17 @@ public class MemberController {
         return "member/list";
     }
 
+    @ResponseBody
     @GetMapping("member")
-    public String oneMemberById(Model model, @RequestParam Long id){
-        Optional<Member> member = memberService.findOneMember(id);
-        model.addAttribute("member",member);
-        return "member/byId";
+    public Optional<Member> oneMemberById(Model model, @RequestParam(value = "id",required = false ,defaultValue = "1")Long id){
+        Optional<Member> member = memberService.findOneMemberById(id);
+
+        return member;
     }
-    @GetMapping("member")
-    public String oneMemberByName(Model model,@RequestParam String name){
-        return "member/byName";
+    @ResponseBody
+    @GetMapping("member/{name}")
+    public Optional<Member> oneMemberByName(Model model, @PathVariable(value="name",required = false)String name){
+        Optional<Member> member = memberService.findOneMemberByName(name);
+        return member;
     }
 }

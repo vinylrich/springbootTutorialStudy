@@ -3,13 +3,14 @@ package com.example.springbootTutorial.service;
 
 import com.example.springbootTutorial.domain.Member;
 import com.example.springbootTutorial.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
 
@@ -34,7 +35,8 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    public Optional<Member> findOneMember(Long id){
+    public Optional<Member> findOneMemberById(Long id){
         return memberRepository.findById(id);
     }
+    public Optional<Member> findOneMemberByName(String name){return memberRepository.findByName(name);}
 }
